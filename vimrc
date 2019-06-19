@@ -270,7 +270,12 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
-nmap <LEADER>mp :MarkdownPreview<CR>
+<Plug>MarkdownPreview
+<Plug>MarkdownPreviewStop
+<Plug>MarkdownPreviewToggle
+nmap <LEADER>mp <Plug>MarkdownPreview
+nmap <LEADER>ms <Plug>MarkdownPreviewStop
+nmap <LEADER>mt <Plug>MarkdownPreviewToggle
 
 " ==== vim-table-modk
 
