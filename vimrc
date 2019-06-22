@@ -13,9 +13,9 @@ set encoding=utf-8
 let &t_ut=''
 " 设置缩进距离
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 " 设置空格的显示
 set list
 set listchars=tab:▸\ ,trail:▫
@@ -130,15 +130,15 @@ map tn :tabe<CR>
 map th :-tabnext<CR>
 " 跳转至下一个标签
 map tl :+tabnext<CR>
-" 关闭当前标签
+  " 关闭当前标签
 map td :tabclose<CR>
 
 "插件安装vim-plug
 call plug#begin('~/.vim/plugged')
-
+Plug 'endel/vim-github-colorscheme'
+Plug 'morhetz/gruvbox'
 
 Plug 'vim-airline/vim-airline'
-Plug 'connorholyday/vim-snazzy'
 
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -180,7 +180,7 @@ Plug 'vim-scripts/indentpython.vim'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'vimwiki/vimwikik'
+Plug 'vimwiki/vimwiki'
 
 " Bookmarks
 Plug 'kshenoy/vim-signature'
@@ -205,7 +205,12 @@ call plug#end()
 let g:SnazzyTransparent = 1
 
 " 设置主题
-color snazzy
+" 可选项
+" github/snazzy/inkstained
+let g:grubvbox_termcolors='256'
+let g:grubvbox_contrast_light = 'soft'
+color gruvbox
+set background =light
 
 " 插件配置
 
@@ -249,8 +254,9 @@ let b:ale_fixers = ['autopep8', 'yapf']
 map <silent> T :TagbarOpenAutoClose<CR>
 
 " ==== MarkdownPreview
+nmap <LEADER>mp :MarkdownPreview<CR>
 
-" ==== vim-table-modk
+" ==== vim-table-mode
 
 map <LEADER>tm :TableModeToggle<CR>
 
