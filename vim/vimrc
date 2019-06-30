@@ -1,3 +1,4 @@
+
 " 设置vi与vim兼容
 set nocompatible
 " 设置使vim识别不同的文件格式
@@ -81,6 +82,13 @@ noremap <LEADER>a 0
 " 设置光标回到行尾
 noremap <LEADER>e $
 
+" 快速插入下行但不进入写入模式
+noremap <LEADER>o o<ESC>
+
+" 快速插入上行但不进入写入模式
+noremap <LEADER>O O<ESC>
+
+
 " 取消s删除字符的功能
 map s <nop>
 
@@ -91,7 +99,7 @@ map S :w<CR>
 map Q :q<CR>
 
 " R快速source vimrc
-map R :source ~/.vim/vimrc<CR>
+map R :source ~/.vimrc<CR>
 
 "分屏操作
 "向右分屏
@@ -203,14 +211,9 @@ call plug#end()
 
 " 设置透明
 let g:SnazzyTransparent = 1
-
-" 设置主题
-" 可选项
-" github/snazzy/inkstained
-let g:grubvbox_termcolors='256'
-let g:grubvbox_contrast_light = 'soft'
 color gruvbox
-set background =light
+set background=dark
+
 
 " 插件配置
 
