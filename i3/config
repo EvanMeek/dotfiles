@@ -23,3 +23,123 @@ bingsym $mod+Shift+q kill
 
 # 使用dmenu启动器
 bingsym $mod+d exec dmenu_run
+
+# 重载i3
+bindsym $mod+Shift+c reload
+# 重启i3
+bindsym $mod+Shift+r restart
+# 退出i3
+bindsym $mod+Shift+e exit
+
+# 使用Vim移动光标的方式hjkl改变焦点
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+# 使用方向键改变焦点
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# 移动当前聚焦的窗口
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# 方向键移动当前聚焦窗口
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# 水平分割
+bindsym $mod+b split h
+# 垂直分割
+bindsym $mod+v split v
+
+# 切换至全屏
+bindsym $mod+f fullscreen
+
+# 切换窗口布局
+# 堆叠
+bindsym $mod+s layout stacking
+# 分页
+bindsym $mod+w layout tabbed
+# 默认
+bindsym $mod+e layout default
+
+# 切换窗口为浮动还是平铺
+bindsym $mod+Shift+space floating toggle
+
+# 在浮动或平铺窗口之间互相切换焦点
+bindsym $mod+space focus mode_toggle
+
+# 切换焦点为父窗口
+bindsym $mod+a focus parent
+# 切换焦点为子窗口
+bindcode $mod+d focus child
+
+# 上/下 一个工作空间
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus left
+bindsym $mod+Tab workspace back_and_forth
+
+# 选择某个工作空间
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# 移动当前容器至某个工作空间
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# 改变边缘
+# bindsym $mod+b border toggle
+
+# 定义改变窗口大小模式
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+  #bindsym uring resize grow width 10 px or 10 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym 113 resize shrink width 10 px or 10 ppt
+  bindsym 116 resize grow height 10 px or 10 ppt
+  bindsym 111 resize shrink height 10 px or 10 ppt
+  bindsym 114 resize grow width 10 px or 10 ppt
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+# 进入改变窗口模式
+bindsym $mod+r mode "resize"
+
+# 音量控制 可能是笔记本才能用
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 -- '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-volume 0 0
+bindsym XF86Launch1 exec /usr/bin/pactl play-sample that_was_easy
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
