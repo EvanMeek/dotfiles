@@ -39,9 +39,6 @@ set autochdir
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 " 设置leader键为空格
 let mapleader=" "
-" 代码高亮
-syntax on
-
 " 设置行号
 set number
 " 设置更好的行号
@@ -144,9 +141,13 @@ map td :tabclose<CR>
 "插件安装vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'endel/vim-github-colorscheme'
+Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 
 Plug 'vim-airline/vim-airline'
+
+" coc.nvim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -157,9 +158,6 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
 
 " Error checking
 Plug 'w0rp/ale'
-
-" Auto Complete
-Plug 'Valloric/YouCompleteMe'
 
 " Undo Tree
 Plug 'mbbill/undotree/'
@@ -210,10 +208,9 @@ Plug 'fadein/vim-FIGlet'
 call plug#end()
 
 " 设置透明
-let g:SnazzyTransparent = 1
-color gruvbox
+syntax enable
 set background=dark
-
+colorscheme solarized
 
 " 插件配置
 
