@@ -437,8 +437,8 @@ key_bindings:
   #- { key: Q,      mods: Command, action: Quit             }
   #- { key: W,      mods: Command, action: Quit             }
 
-  - { key: Paste,                   action: Paste                            }
-  - { key: Copy,                    action: Copy                             }
+  - { key: V,        mods: Control, action: Paste                            }
+  - { key: C,        mods: Control, action: Copy                             }
   - { key: L,        mods: Control, action: ClearLogNotice                   }
   - { key: L,        mods: Control, chars: "\x0c"                            }
   - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
