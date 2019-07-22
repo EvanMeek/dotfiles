@@ -96,7 +96,7 @@ map S :w<CR>
 map Q :q<CR>
 
 " R快速source vimrc
-map R :source ~/.vimrc<CR>
+map R :source ~/.config/nvim/init.vim<CR>
 
 "分屏操作
 "向右分屏
@@ -138,11 +138,19 @@ map tl :+tabnext<CR>
   " 关闭当前标签
 map td :tabclose<CR>
 
+" sudo vim
+map <LEADER>sudo :w !sudo tee %
+
+" 打开terminal
+map <LEADER>T :terminal<CR>
+
 "插件安装vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'endel/vim-github-colorscheme'
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+Plug 'connorholyday/vim-snazzy'
+Plug 'junegunn/seoul256.vim'
+Plug 'luochen1990/rainbow'
 
 Plug 'vim-airline/vim-airline'
 
@@ -204,15 +212,46 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'fadein/vim-FIGlet'
 
+" menu
+Plug 'mhinz/vim-startify'
+
 
 call plug#end()
 
 " 设置透明
 syntax enable
-set background=dark
-colorscheme solarized
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+let g:seoul256_background = 233
+colo seoul256
 
 " 插件配置
+
+" ==== Rainbox
+
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
 
 " ==== NERDTree
 map ff :NERDTreeToggle<CR>
@@ -255,6 +294,7 @@ map <silent> T :TagbarOpenAutoClose<CR>
 
 " ==== MarkdownPreview
 nmap <LEADER>mp :MarkdownPreview<CR>
+let g:mkdp_browser = 'firefox'
 
 " ==== vim-table-mode
 

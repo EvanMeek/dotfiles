@@ -52,7 +52,7 @@ window:
   decorations: full
 
   # When true, alacritty starts maximized.
-  start_maximized: false
+  startup_mode: Windowed
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -155,41 +155,42 @@ font:
   # effect.
   use_thin_strokes: true
 
-# Display the time it takes to redraw each frame.
-render_timer: false
+  debug:
+    # Display the time it takes to redraw each frame.
+    render_timer: false
+    # Keep the log file after quitting Alacritty.
+    persistent_logging: false
 
-# Keep the log file after quitting Alacritty.
-persistent_logging: false
 
 # If `true`, bold text is drawn using the bright color variants.
-# Colors (Solarized Dark)
+# Colors (Seoul256)
 colors:
   # Default colors
   primary:
-    background: '0x002b36' # base03
-    foreground: '0x839496' # base0
+    background: '0x3a3a3a'
+    foreground: '0xd0d0d0'
 
   # Normal colors
   normal:
-    black:   '0x073642' # base02
-    red:     '0xdc322f' # red
-    green:   '0x859900' # green
-    yellow:  '0xb58900' # yellow
-    blue:    '0x268bd2' # blue
-    magenta: '0xd33682' # magenta
-    cyan:    '0x2aa198' # cyan
-    white:   '0xeee8d5' # base2
+    black:   '0x4e4e4e'
+    red:     '0xd68787'
+    green:   '0x5f865f'
+    yellow:  '0xd8af5f'
+    blue:    '0x85add4'
+    magenta: '0xd7afaf'
+    cyan:    '0x87afaf'
+    white:   '0xd0d0d0'
 
   # Bright colors
   bright:
-    black:   '0x002b36' # base03
-    red:     '0xcb4b16' # orange
-    green:   '0x586e75' # base01
-    yellow:  '0x657b83' # base00
-    blue:    '0x839496' # base0
-    magenta: '0x6c71c4' # violet
-    cyan:    '0x93a1a1' # base1
-    white:   '0xfdf6e3' # base3
+    black:   '0x626262'
+    red:     '0xd75f87'
+    green:   '0x87af87'
+    yellow:  '0xffd787'
+    blue:    '0xadd4fb'
+    magenta: '0xffafaf'
+    cyan:    '0x87d7d7'
+    white:   '0xe4e4e4'
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
@@ -437,8 +438,7 @@ key_bindings:
   #- { key: Q,      mods: Command, action: Quit             }
   #- { key: W,      mods: Command, action: Quit             }
 
-  - { key: V,        mods: Control, action: Paste                            }
-  - { key: C,        mods: Control, action: Copy                             }
+  - { key: Q,        mods: Control, action: Quit                             }
   - { key: L,        mods: Control, action: ClearLogNotice                   }
   - { key: L,        mods: Control, chars: "\x0c"                            }
   - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
