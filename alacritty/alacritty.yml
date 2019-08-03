@@ -160,37 +160,37 @@ font:
     render_timer: false
     # Keep the log file after quitting Alacritty.
     persistent_logging: false
-
-
-# If `true`, bold text is drawn using the bright color variants.
-# Colors (Seoul256)
+# Colors (Snazzy)
 colors:
   # Default colors
   primary:
-    background: '0x3a3a3a'
-    foreground: '0xd0d0d0'
+    background: '0x282a36'
+    foreground: '0xeff0eb'
 
   # Normal colors
   normal:
-    black:   '0x4e4e4e'
-    red:     '0xd68787'
-    green:   '0x5f865f'
-    yellow:  '0xd8af5f'
-    blue:    '0x85add4'
-    magenta: '0xd7afaf'
-    cyan:    '0x87afaf'
-    white:   '0xd0d0d0'
+    black:   '0x282a36'
+    red:     '0xff5c57'
+    green:   '0x5af78e'
+    yellow:  '0xf3f99d'
+    blue:    '0x57c7ff'
+    magenta: '0xff6ac1'
+    cyan:    '0x9aedfe'
+    white:   '0xf1f1f0'
 
   # Bright colors
   bright:
-    black:   '0x626262'
-    red:     '0xd75f87'
-    green:   '0x87af87'
-    yellow:  '0xffd787'
-    blue:    '0xadd4fb'
-    magenta: '0xffafaf'
-    cyan:    '0x87d7d7'
-    white:   '0xe4e4e4'
+    black:   '0x686868'
+    red:     '0xff5c57'
+    green:   '0x5af78e'
+    yellow:  '0xf3f99d'
+    blue:    '0x57c7ff'
+    magenta: '0xff6ac1'
+    cyan:    '0x9aedfe'
+    white:   '0xf1f1f0'
+
+# If `true`, bold text is drawn using the bright color variants.
+# Colors (Seoul256)
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
