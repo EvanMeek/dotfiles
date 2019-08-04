@@ -1,0 +1,13 @@
+These files go into /etc/fonts/conf.avail/ (debian/install) and should be
+linked to /etc/fonts/conf.d/ .
+
+They replace 52-language-selector .
+
+30-cjk-aliases
+	* should be linked by default
+69-language-selector-$lang-$country
+    * Mutually exclusive (guarded by the user's locale)
+    * Defaults for each language/country combination
+99-language-selector-zh
+	* artificial emboldening for chinese fonts
+	* should be linked by default

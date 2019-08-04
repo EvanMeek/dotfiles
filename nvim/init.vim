@@ -1,4 +1,7 @@
-
+" 256色
+set t_Co=256
+" 设置透明
+syntax enable
 " 设置vi与vim兼容
 set nocompatible
 " 设置使vim识别不同的文件格式
@@ -150,7 +153,8 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'altercation/vim-colors-solarized'
 Plug 'connorholyday/vim-snazzy'
 Plug 'junegunn/seoul256.vim'
-Plug 'luochen1990/rainbow'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'morhetz/gruvbox'
 
 Plug 'vim-airline/vim-airline'
 
@@ -191,6 +195,9 @@ Plug 'mattn/emmet-vim'
 " Python
 Plug 'vim-scripts/indentpython.vim'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
@@ -206,6 +213,10 @@ Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to 
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
+Plug 'vim-syntastic/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'rust-lang/rustfmt'
+Plug 'mattn/webapi-vim'
 
 " Dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -215,43 +226,43 @@ Plug 'fadein/vim-FIGlet'
 " menu
 Plug 'mhinz/vim-startify'
 
+" 自动补全符号
+Plug 'Raimondi/delimitMate'
+
+Plug 'davidhalter/jedi-vim'
+
+
 
 call plug#end()
 
-" 设置透明
-syntax enable
 " seoul256 (dark):
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
+" Range:   233 (darkest) ~ 239 (lightest)
+" Default: 237
 let g:seoul256_background = 233
 colo seoul256
 
+
+color gruvbox
+
+
+" colo snazzy
+
 " 插件配置
 
-" ==== Rainbox
+" ==== Rust
+let g:rust_clip_command = 'xclip -selection clipboard'
 
-let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-	\	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-	\	'separately': {
-	\		'*': {},
-	\		'tex': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-	\		},
-	\		'lisp': {
-	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-	\		},
-	\		'vim': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-	\		},
-	\		'html': {
-	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-	\		},
-	\		'css': 0,
-	\	}
-	\}
+" ==== Rainbox
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+
+" List of colors that you do not want. ANSI code or #RRGGBB
+let g:rainbow#blacklist = [233, 234]
+" Activation based on file type
+augroup rainbow_lisp
+  autocmd!
+  autocmd FileType lisp,clojure,scheme RainbowParentheses
+augroup END<Paste>
 
 " ==== NERDTree
 map ff :NERDTreeToggle<CR>
@@ -339,3 +350,11 @@ let g:SignatureMap = {
 " === Undotree
 let g:undotree_DiffAutoOpen = 0
 map <LEADER>ut :UndotreeToggle<CR>
+
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif

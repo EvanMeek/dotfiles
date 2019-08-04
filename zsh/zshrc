@@ -108,9 +108,18 @@ alias pc="proxychains4"
 alias vim="nvim"
 alias vi="nvim"
 alias sps="sudo pacman -S"
+alias spsyu="sudo pacman -Syu"
+alias sprscn="sudo pacman -Rscn"
 alias pss="pacman -Ss"
 alias ys="yay -S"
 alias yss="yay -Ss"
+alias tmn="tmux new -s"
+alias tma="tmux a -t"
+alias tmk="tmux kill-session -t"
+alias tmls="tmux ls"
+alias vcfg="nvim ~/.config/nvim/init.vim"
+alias tmux="TERM=screen-256color-bce tmux"
+
 source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 POWERLEVEL9K_MODE='nerdfont-complete'
 
