@@ -7,7 +7,7 @@
 ## 必备字体
 
 ~~~
-sudo pacman -S ttf-font-awesome wqy-bitmapfont wqy-microhei wqy-microhei wqy-zenhei nerd-fonts-complete
+sudo pacman -S ttf-font-awesome wqy-bitmapfont wqy-microhei wqy-zenhei nerd-fonts-complete
 ~~~
 
 ## i3wm
