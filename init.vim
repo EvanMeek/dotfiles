@@ -1,3 +1,5 @@
+" 开启文件类型检测
+filetype plugin indent on
 " 256色
 set t_Co=256
 " 设置透明
@@ -67,7 +69,6 @@ set smartcase
 " 搜索跳转结果改为=/-并且使搜索结果在屏幕中间
 noremap = nzz
 noremap - Nzz
-
 " 大写JKHL重复五次执行
 noremap J 5j
 noremap K 5k
@@ -205,6 +206,8 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'
 Plug 'Chiel92/vim-autoformat'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'davidhalter/jedi-vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -240,8 +243,6 @@ Plug 'mhinz/vim-startify'
 " 自动补全符号
 Plug 'Raimondi/delimitMate'
 
-Plug 'davidhalter/jedi-vim'
-
 " Python
 "Plug 'ncm2/ncm2'
 "Plug 'roxma/nvim-yarp'
@@ -255,51 +256,35 @@ Plug 'davidhalter/jedi-vim'
 "Plug 'SirVer/ultisnips'
 "Plug 'roxma/nvim-yarp'
 "Plug 'ncm2/ncm2-ultisnips'
+
+" Vim中文文档
+Plug 'wsdjeg/vimdoc-cn'
 call plug#end()
 
 
-color gruvbox
+colorscheme snazzy
 
 
 
 " 插件配置
 
-" ncm2
-" autocmd BufEnter * call ncm2#enable_for_buffer()
-" 
-"     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-"     " found' messages
-"     set shortmess+=c
-" 
-"     " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-"     inoremap <c-c> <ESC>
-" 
-"     " When the <Enter> key is pressed while the popup menu is visible, it only
-"     " hides the menu. Use this mapping to close the menu and also start a new
-"     " line.
-"     inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-" 
-"     " Use <TAB> to select the popup menu:
-"     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" 
-"     " wrap existing omnifunc
-"     " Note that omnifunc does not run in background and may probably block the
-"     " editor. If you don't want to be blocked by omnifunc too often, you could
-"     " add 180ms delay before the omni wrapper:
-"     "  'on_complete': ['ncm2#on_complete#delay', 180,
-"     "               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-"     au User Ncm2Plugin call ncm2#register_source({
-"             \ 'name' : 'css',
-"             \ 'priority': 9,
-"             \ 'subscope_enable': 1,
-"             \ 'scope': ['css','scss'],
-"             \ 'mark': 'css',
-"             \ 'word_pattern': '[\w\-]+',
-"             \ 'complete_pattern': ':\s*',
-"             \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-"             \ })
-" 
+" ==== Snazzy
+let g:SnazzyTransparent = 1
+let g:lightline = {
+\ 'colorscheme': 'snazzy',
+\ }
+
+" ==== python-mode
+let g:pymode_python = 'python3'
+let g:pymode_trim_whitespaces = 1
+let g:pymoe_doc = 1
+let g:pymode_doc_bin = 'K'
+let g:pymode_rope_goto_definaition_bind = "<C-]>"
+let g:pymoelint = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mcakbe', 'pylint']
+let g:pymode_options_max_line_length = 120
+map <LEADER>0 :PymodeRun<CR>
+map <LEADER>9 :PymodeLintAuto<CR>
 " ==== Rainbox
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']']]
