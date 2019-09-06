@@ -1,3 +1,5 @@
+" 开启文件类型检测
+filetype plugin indent on
 " 256色
 set t_Co=256
 " 设置透明
@@ -67,7 +69,6 @@ set smartcase
 " 搜索跳转结果改为=/-并且使搜索结果在屏幕中间
 noremap = nzz
 noremap - Nzz
-
 " 大写JKHL重复五次执行
 noremap J 5j
 noremap K 5k
@@ -147,6 +148,15 @@ map <LEADER>sudo :w !sudo tee %
 " 打开terminal
 map <LEADER>T :terminal<CR>
 
+" python缩进
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 "插件安装vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'endel/vim-github-colorscheme'
@@ -155,6 +165,7 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'morhetz/gruvbox'
+Plug 'flazz/vim-colorschemes'
 
 Plug 'vim-airline/vim-airline'
 
@@ -194,12 +205,16 @@ Plug 'mattn/emmet-vim'
 
 " Python
 Plug 'vim-scripts/indentpython.vim'
+Plug 'nvie/vim-flake8'
+Plug 'Chiel92/vim-autoformat'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'davidhalter/jedi-vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 
@@ -229,29 +244,49 @@ Plug 'mhinz/vim-startify'
 " 自动补全符号
 Plug 'Raimondi/delimitMate'
 
-Plug 'davidhalter/jedi-vim'
+" Vim中的计算器
+Plug 'theniceboy/vim-calc'
 
+" Python
+"Plug 'ncm2/ncm2'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-path'
+"Plug 'ncm2/ncm2-jedi'
+"Plug 'roxma/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
+"Plug 'SirVer/ultisnips'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-ultisnips'
 
+" Vim中文文档
+Plug 'wsdjeg/vimdoc-cn'
 
+" Vim内置翻译插件
+Plug 'voldikss/vim-translate-me'
 call plug#end()
-
-" seoul256 (dark):
-" Range:   233 (darkest) ~ 239 (lightest)
-" Default: 237
-let g:seoul256_background = 233
-colo seoul256
-
-
-color gruvbox
-
-
-" colo snazzy
 
 " 插件配置
 
-" ==== Rust
-let g:rust_clip_command = 'xclip -selection clipboard'
+" ==== Snazzy
+let g:SnazzyTransparent = 1
+let g:lightline = {
+\ 'colorscheme': 'snazzy',
+\ }
 
+" ==== python-mode
+let g:pymode_python = 'python3'
+let g:pymode_trim_whitespaces = 1
+let g:pymoe_doc = 1
+let g:pymode_doc_bin = 'K'
+let g:pymode_rope_goto_definaition_bind = "<C-]>"
+let g:pymoelint = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mcakbe', 'pylint']
+let g:pymode_options_max_line_length = 120
+map <LEADER>0 :PymodeRun<CR>
+map <LEADER>9 :PymodeLintAuto<CR>
 " ==== Rainbox
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']']]
@@ -280,22 +315,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
-
-" ==== You Complete ME
-" 跳转至其他的声明
-nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" 跳转至文档
-nnoremap g/ :YcmCompleter GetDoc<CR>
-" 获取类型
-nnoremap gt :YcmCompleter GetType<CR>
-" 获取参考
-nnoremap gr :YcmCompleter GoToReferences<CR>
-let g:ycm_autoclose_preview_window_after_completion=0
-let g:ycm_autoclose_preview_window_after_insertion=1
-let g:ycm_use_clangd = 0
-let g:ycm_python_interpreter_path = "/bin/python3"
-let g:ycm_python_binary_path = "/bin/python3"
-
 " ==== ale
 let b:ale_linters = ['pylint']
 let b:ale_fixers = ['autopep8', 'yapf']
@@ -305,18 +324,13 @@ map <silent> T :TagbarOpenAutoClose<CR>
 
 " ==== MarkdownPreview
 nmap <LEADER>mp :MarkdownPreview<CR>
-let g:mkdp_browser = 'firefox'
 
+" === edit vimrc
+nmap <LEADER>rc :e $MYVIMRC<CR>
 " ==== vim-table-mode
 
 map <LEADER>tm :TableModeToggle<CR>
 
-" ==== vim-indent-guide
-let g:indent_guides_guide_size = 0
-let g:indent_guides_start_level = 2
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_color_change_percent = 0
-autocmd WinEnter * silent! unmap <LEADER>ig
 
 " ====Goyo
 map <LEADER>gy :Goyo<CR>
@@ -351,10 +365,40 @@ let g:SignatureMap = {
 let g:undotree_DiffAutoOpen = 0
 map <LEADER>ut :UndotreeToggle<CR>
 
+" === Pencil Color
+" 对比度
+let g:pencil_higher_contrast_ui = 0
 
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
+" Makrdown 标题颜色
+let g:pencil_neutral_headings = 0
+
+" 代码背景颜色
+let g:pencil_neutral_code_bg = 1
+
+" 拼写错误颜色
+let g:pencil_spell_undercurl = 1
+
+if $TERM_PROGRAM =~ "iTerm""
+let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+let &t_EI = "\Esc><]50;CursorShape=0\x7" " Block in normal mode
+endif">
+
+" === Vim translate
+" 是否使用默认的快捷键
+let g:vtm_default_mapping = 0
+" 默认翻译的目标语言
+let g:vtm_default_to_lang = 'zh'
+" 默认翻译接口
+let g:vtm_default_engines = 'youdao'
+" 快捷键设置===
+nmap <silent> <LEADER>t <Plug>Translate
+vmap <silent> <LEADER>t <Plug>Translate
+
+" Leader>w 翻译光标下的文本，在窗口中显示
+nmap <silent> <Leader>tw <Plug>TranslateW
+vmap <silent> <Leader>tw <Plug>TranslateWV
+" Leader>r 替换光标下的文本为翻译内容
+nmap <silent> <Leader>tr <Plug>TranslateR
+vmap <silent> <Leader>tr <Plug>TranslateRV
+
+
