@@ -1,197 +1,344 @@
-" 开启文件类型检测
-filetype plugin indent on
-" 256色
-set t_Co=256
-" 设置透明
-syntax enable
-" 设置vi与vim兼容
-set nocompatible
-" 设置使vim识别不同的文件格式
-filetype on
-filetype indent on
-filetype plugin on
-filetype plugin indent on
-" 设置使vim能用鼠标操作
-set mouse=a
-" 设置字符编码
-set encoding=utf-8
-" 使配色更加兼容你的终端
+"  __  __        __     _____ __  __ ____   ____
+" |  \/  |_   _  \ \   / /_ _|  \/  |  _ \ / ___|
+" | |\/| | | | |  \ \ / / | || |\/| | |_) | |
+" | |  | | |_| |   \ V /  | || |  | |  _ <| |___
+" |_|  |_|\__, |    \_/  |___|_|  |_|_| \_\\____|
+"         |___/
+
+" Todos
+" - pylint reports error when doing `vim ~/Github/vim-calc/build-up/calc.py`
+"   instead of doing `cd ~/Github/vim-calc/build-up` and then do `vim calc.py`
+" - hotkey to switch between light theme and dark theme (in progress, still
+"   some bugs
+"
+"
+"   Testing
+"fnew
+"call nvim_win_float_set_pos(0,5,10,20,5)
+"hi Floating guibg=#00044
+"set withhl=Normal:Floating
+
+
+" ===
+" === Auto load for first time uses
+" ===
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ====================
+" === Editor Setup ===
+" ====================
+
+" ===
+" === System
+" ===
+"set clipboard=unnamed
 let &t_ut=''
-" 设置缩进距离
+set autochdir
+
+
+" ===
+" === Editor behavior
+" ===
+set number
+set relativenumber
+set cursorline
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-" 设置空格的显示
 set list
 set listchars=tab:▸\ ,trail:▫
+set scrolloff=5
+set ttimeoutlen=0
+set notimeout
+set viewoptions=cursor,folds,slash,unix
+set wrap
 set tw=0
 set indentexpr=
-" 退格键到行首后自动跳转到上行行尾
-set backspace=indent,eol,start
-" 收起代码
 set foldmethod=indent
 set foldlevel=99
-" 设置终端的光标在不同模式下用不同的样式,实测Konsole可用
+set formatoptions-=tc
+set splitright
+set splitbelow
+set mouse=a
+set noshowmode
+set showcmd
+" set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
+set wildmenu
+exec "nohlsearch"
+set ignorecase
+set smartcase
+set shortmess+=c
+set inccommand=split
+set ttyfast "should make scrolling faster
+set lazyredraw "same as above
+set visualbell
+silent !mkdir -p ~/.config/nvim/tmp/backup
+silent !mkdir -p ~/.config/nvim/tmp/undo
+set backupdir=~/.config/nvim/tmp/backup,.
+set directory=~/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/nvim/tmp/undo,.
+endif
+
+" Cursor shape
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" 状态栏等于２？？？
-set laststatus=2
-" vim执行的外部命令会在当前目录下执行
-set autochdir
-" 关闭文件又打开光标会自动回到关闭前的位置
+
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-" 设置leader键为空格
+
+
+" ===
+" === Terminal Behavior
+" ===
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
+"tnoremap <C-N> <C-\><C-N>:q<CR>
+
+
+" ===
+" === Basic Mappings
+" ===
+" Set <LEADER> as <SPACE>, ; as :
 let mapleader=" "
-" 设置行号
-set number
-" 设置更好的行号
-set relativenumber
-" 设置光标线
-set cursorline
-" 自动换行
-set wrap
-" 显示命令
-set showcmd
-" tab多选项菜单
-set wildmenu
-" 设置搜索关键词高亮
-set hlsearch
-exec "nohlsearch"
-" 设置搜索输入时高亮
-set incsearch
-" 搜索时忽略大小写
-set ignorecase 
-" 只能搜索忽略大小写
-set smartcase
+map ; :
 
-" 搜索跳转结果改为=/-并且使搜索结果在屏幕中间
-noremap = nzz
-noremap - Nzz
-" 大写JKHL重复五次执行
-noremap J 5j
-noremap K 5k
-noremap H 5h
-noremap L 5l
-" 设置取消高亮
-noremap <LEADER><CR> :nohlsearch<CR>
-
-" 设置光标回到行首
-noremap <LEADER>a 0
-
-" 设置光标回到行尾
-noremap <LEADER>e $
-
-" 快速插入下行但不进入写入模式
-noremap <LEADER>o o<ESC>
-
-" 快速插入上行但不进入写入模式
-noremap <LEADER>O O<ESC>
-
-
-" 取消s删除字符的功能
-map s <nop>
-
-" 快速保存
+" Save & quit
+map Q :q<CR>
 map S :w<CR>
 
-" 按大写Q直接退出
-map Q :q<CR>
+" Open the vimrc file anytime
+map <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 
-" R快速source vimrc
-map R :source ~/.config/nvim/init.vim<CR>
+" Open Startify
+map <LEADER>st :Startify<CR>
 
-"分屏操作
-"向右分屏
-map <LEADER>l :set splitright<CR>:vsplit<CR>
-"向左分屏
-map <LEADER>h :set nosplitright<CR>:vsplit<CR>
-"向上分屏
-map <LEADER>k :set nosplitbelow<CR>:split<CR>
-"向下分屏
-map <LEADER>j :set splitbelow<CR>:split<CR>
-"光标移动至左分屏
-map sh <C-w>h
-"光标移动至右分屏
-map sl <C-w>l
-"光标移动至下分屏
-map sj <C-w>j
-"光标移动至上分屏
-map sk <C-w>k
-"增加纵向分屏大小
+" Copy to system clipboard
+vnoremap Y :w !xclip -i -sel c<CR>
+
+" Indentation
+nnoremap < <<
+nnoremap > >>
+
+" Search
+map <LEADER><CR> :nohlsearch<CR>
+noremap = nzz
+noremap - Nzz
+
+" Adjacent duplicate words
+map <LEADER>dw /\(\<\w\+\>\)\_s*\1
+
+" Folding
+map <silent> <LEADER>o za
+
+
+" ===
+" === Cursor Movement
+" ===
+" New cursor movement (the default arrow keys are used for resizing windows)
+"     ^
+"     u
+" < n   i >
+"     e
+"     v
+
+" U/E keys for 5 times u/e (faster navigation)
+noremap <silent> K 5k
+noremap <silent> J 5j
+
+" N key: go to the start of the line
+noremap <silent> T 0
+" I key: go to the end of the line
+noremap <silent> E $
+
+" Faster in-line navigation
+noremap W 5w
+noremap B 5b
+
+" Ctrl + U or E will move up/down the view port without moving the cursor
+noremap <C-Y> 5<C-y>
+noremap <C-E> 5<C-e>
+
+
+" ===
+" === Window management
+" ===
+" Use <space> + new arrow keys for moving the cursor around windows
+map <LEADER>w <C-w>w
+map <LEADER>k <C-w>k
+map <LEADER>j <C-w>j
+map <LEADER>h <C-w>h
+map <LEADER>l <C-w>l
+
+" Disabling the default s key
+noremap s <nop>
+
+" split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
+map sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+map sj :set splitbelow<CR>:split<CR>
+map sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+map sl :set splitright<CR>:vsplit<CR>
+
+" Resize splits with arrow keys
 map <up> :res +5<CR>
-"减少纵向分屏大小
 map <down> :res -5<CR>
-"减少横向分屏大小
 map <left> :vertical resize-5<CR>
-"增加横横分屏大小
 map <right> :vertical resize+5<CR>
-"将分屏设置为横向分屏
-map <LEADER>H <C-w>t<C-w>H
-"将分屏设置为纵向分屏
-map <LEADER>K <C-w>t<C-w>K
 
-"标签
-"打开新标签
-map tn :tabe<CR>
-" 跳转至上一个标签
-map th :-tabnext<CR>
-" 跳转至下一个标签
-map tl :+tabnext<CR>
-  " 关闭当前标签
-map td :tabclose<CR>
+" Place the two screens up and down
+noremap sh <C-w>t<C-w>K
+" Place the two screens side by side
+noremap sv <C-w>t<C-w>H
 
-" sudo vim
-map <LEADER>sudo :w !sudo tee %
+" Rotate screens
+noremap srh <C-w>b<C-w>K
+noremap srv <C-w>b<C-w>H
 
-" 打开terminal
-map <LEADER>T :terminal<CR>
 
-" python缩进
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
-"插件安装vim-plug
-call plug#begin('~/.vim/plugged')
-Plug 'endel/vim-github-colorscheme'
-Plug 'altercation/vim-colors-solarized'
-Plug 'connorholyday/vim-snazzy'
-Plug 'junegunn/seoul256.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'morhetz/gruvbox'
-Plug 'flazz/vim-colorschemes'
+" ===
+" === Tab management
+" ===
+" Create a new tab with tu
+map tu :tabe<CR>
+" Move around tabs with tn and ti
+map tn :-tabnext<CR>
+map ti :+tabnext<CR>
+" Move the tabs with tmn and tmi
+map tmn :-tabmove<CR>
+map tmi :+tabmove<CR>
 
+
+" ===
+" === My Snippets
+" ===
+source ~/.config/nvim/snippits.vim
+
+
+" ===
+" === Other useful stuff
+" ===
+
+" Opening a terminal window
+map <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+
+" Press space twice to jump to the next '<++>' and edit it
+map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
+
+" Spelling Check with <space>sc
+map <LEADER>sc :set spell!<CR>
+noremap <C-x> ea<C-x>s
+inoremap <C-x> <Esc>ea<C-x>s
+
+" Press ` to change case (instead of ~)
+map ` ~
+
+imap <C-c> <Esc>zza
+nmap <C-c> zz
+
+" Auto change directory to current dir
+autocmd BufEnter * silent! lcd %:p:h
+
+" Call figlet
+map tx :r !cowsay
+
+" Compile function
+map r :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+  exec "w"
+  if &filetype == 'c'
+    exec "!g++ % -o %<"
+    exec "!time ./%<"
+  elseif &filetype == 'cpp'
+    exec "!g++ % -o %<"
+    exec "!time ./%<"
+  elseif &filetype == 'java'
+    exec "!javac %"
+    exec "!time java %<"
+  elseif &filetype == 'sh'
+    :!time bash %
+  elseif &filetype == 'python'
+    set splitright
+    ":vsp
+    ":vertical resize-10
+    :sp
+    :term python3 %
+  elseif &filetype == 'html'
+    exec "!chromium % &"
+  elseif &filetype == 'markdown'
+    exec "MarkdownPreview"
+  endif
+endfunc
+
+" working on it...
+map R :call CompileBuildrrr()<CR>
+func! CompileBuildrrr()
+  exec "w"
+  if &filetype == 'vim'
+    exec "source $MYVIMRC"
+  elseif &filetype == 'markdown'
+    exec "echo"
+  endif
+endfunc
+
+
+" ===
+" === Install Plugins with Vim-Plug
+" ===
+
+call plug#begin('~/.config/nvim/plugged')
+
+
+" Pretty Dress
 Plug 'vim-airline/vim-airline'
-
-" coc.nvim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'liuchengxu/space-vim-theme'
 
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Taglist
 Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
 
 " Error checking
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
+
+" Auto Complete
+"Plug 'Valloric/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'davidhalter/jedi-vim'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'ncm2/ncm2'
+"Plug 'ncm2/ncm2-jedi'
+"Plug 'ncm2/ncm2-github'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-path'
+"Plug 'ncm2/ncm2-match-highlight'
+"Plug 'ncm2/ncm2-markdown-subscope'
 
 " Undo Tree
 Plug 'mbbill/undotree/'
 
 " Other visual enhancement
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'itchyny/vim-cursorword'
+"Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'itchyny/vim-cursorword'
+"Plug 'tmhedberg/SimpylFold'
+Plug 'Yggdroot/indentLine'
+Plug 'mhinz/vim-startify'
 
 " Git
-Plug 'rhysd/conflict-marker.vim'
-Plug 'tpope/vim-fugitive'
+"Plug 'rhysd/conflict-marker.vim'
+"Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'gisphm/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
 
@@ -204,106 +351,112 @@ Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'mattn/emmet-vim'
 
 " Python
-Plug 'vim-scripts/indentpython.vim'
-Plug 'nvie/vim-flake8'
-Plug 'Chiel92/vim-autoformat'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'davidhalter/jedi-vim'
+Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+"Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" Markdown
- Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" Markdow}n
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'vimwiki/vimwiki'
+Plug 'dkarter/bullets.vim', { 'for' :['markdown', 'vim-plug'] }
+
+" For general writing
+Plug 'reedes/vim-wordy'
+Plug 'ron89/thesaurus_query.vim'
 
 " Bookmarks
 Plug 'kshenoy/vim-signature'
 
 " Other useful utilities
+Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'junegunn/goyo.vim' " distraction free writing mode
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
-Plug 'vim-syntastic/syntastic'
-Plug 'majutsushi/tagbar'
-Plug 'rust-lang/rustfmt'
-Plug 'mattn/webapi-vim'
+Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
+Plug 'tmhedberg/SimpylFold'
+"Plug 'vim-scripts/restore_view.vim'
+Plug 'AndrewRadev/switch.vim' " gs to switch
+Plug 'ryanoasis/vim-devicons'
 
 " Dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
-Plug 'fadein/vim-FIGlet'
+Plug 'roxma/nvim-yarp'
 
-" menu
-Plug 'mhinz/vim-startify'
-
-" 自动补全符号
-Plug 'Raimondi/delimitMate'
-
-" Vim中的计算器
-Plug 'theniceboy/vim-calc'
-
-" Python
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-"Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-path'
-"Plug 'ncm2/ncm2-jedi'
-"Plug 'roxma/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ }
-"Plug 'SirVer/ultisnips'
-"Plug 'roxma/nvim-yarp'
-"Plug 'ncm2/ncm2-ultisnips'
-
-" Vim中文文档
-Plug 'wsdjeg/vimdoc-cn'
-
-" Vim内置翻译插件
-Plug 'voldikss/vim-translate-me'
 call plug#end()
 
-" 插件配置
+" ===
+" === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
+" ===
+let has_machine_specific_file = 1
+if empty(glob('~/.config/nvim/_machine_specific.vim'))
+  let has_machine_specific_file = 0
+  silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
+endif
+source ~/.config/nvim/_machine_specific.vim
 
-" ==== Snazzy
-let g:SnazzyTransparent = 1
-let g:lightline = {
-\ 'colorscheme': 'snazzy',
-\ }
 
-" ==== python-mode
-let g:pymode_python = 'python3'
-let g:pymode_trim_whitespaces = 1
-let g:pymoe_doc = 1
-let g:pymode_doc_bin = 'K'
-let g:pymode_rope_goto_definaition_bind = "<C-]>"
-let g:pymoelint = 1
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mcakbe', 'pylint']
-let g:pymode_options_max_line_length = 120
-map <LEADER>0 :PymodeRun<CR>
-map <LEADER>9 :PymodeLintAuto<CR>
-" ==== Rainbox
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+" ===
+" === Dress up my vim
+" ===
+set termguicolors     " enable true colors support
+let g:space_vim_transp_bg = 1
+"set background=dark
+colorscheme space_vim_theme
 
-" List of colors that you do not want. ANSI code or #RRGGBB
-let g:rainbow#blacklist = [233, 234]
-" Activation based on file type
-augroup rainbow_lisp
-  autocmd!
-  autocmd FileType lisp,clojure,scheme RainbowParentheses
-augroup END<Paste>
+" ===================== Start of Plugin Settings =====================
 
-" ==== NERDTree
-map ff :NERDTreeToggle<CR>
+" ===
+" === Airline
+" ===
+let g:airline_theme='dracula'
+let g:airline#extensions#coc#enabled = 0
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'Nor',
+      \ 'i'  : 'Ins',
+      \ 'R'  : 'Rpl',
+      \ 'c'  : 'Cmd',
+      \ 'v'  : 'Vis',
+      \ 'V'  : 'Vli',
+      \ '' : 'Vbl',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 
-" ==== NERDTree-git
 
+" ===
+" === NERDTree
+" ===
+map tt :NERDTreeToggle<CR>
+let NERDTreeMapOpenExpl = ""
+let NERDTreeMapUpdir = "N"
+let NERDTreeMapUpdirKeepOpen = "n"
+let NERDTreeMapOpenSplit = ""
+let NERDTreeMapOpenVSplit = "I"
+let NERDTreeMapActivateNode = "i"
+let NERDTreeMapOpenInTab = "o"
+let NERDTreeMapOpenInTabSilent = "O"
+let NERDTreeMapPreview = ""
+let NERDTreeMapCloseDir = ""
+let NERDTreeMapChangeRoot = "l"
+let NERDTreeMapMenu = ","
+let NERDTreeMapToggleHidden = "zh"
+
+
+" ==
+" == NERDTree-git
+" ==
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -315,27 +468,130 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
-" ==== ale
-let b:ale_linters = ['pylint']
-let b:ale_fixers = ['autopep8', 'yapf']
 
-" ==== TagList
+
+" ===
+" === NCM2
+" ===
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+"set completeopt=noinsert,menuone,noselect
+"let ncm2#popup_delay = 5
+"let g:ncm2#matcher = "substrfuzzy"
+"let g:ncm2_jedi#python_version = 3
+"let g:ncm2#match_highlight = 'bold'
+"let g:jedi#auto_initialization = 1
+""let g:jedi#completion_enabled = 0
+""let g:jedi#auto_vim_configuration = 0
+""let g:jedi#smart_auto_mapping = 0
+"let g:jedi#popup_on_dot = 1
+"let g:jedi#completion_command = ""
+"let g:jedi#show_call_signatures = "1"
+
+
+" ===
+" === coc
+" ===
+" fix the most annoying bug that coc has
+"autocmd WinEnter * call timer_start(1000, { tid -> execute('unmap if')})
+"silent! autocmd BufEnter * silent! call silent! timer_start(600, { tid -> execute('unmap if')})
+"silent! autocmd WinEnter * silent! call silent! timer_start(600, { tid -> execute('unmap if')})
+silent! au BufEnter * silent! unmap if
+"au TextChangedI * GitGutter
+" Installing plugins
+let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-snippets', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore']
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Useful commands
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+
+
+" ===
+" === indentLine
+" ===
+let g:indentLine_char = '│'
+let g:indentLine_color_term = 238
+let g:indentLine_color_gui = '#333333'
+silent! unmap <LEADER>ig
+autocmd WinEnter * silent! unmap <LEADER>ig
+
+
+" ===
+" === some error checking
+" ===
+" I ain't need no ale!
+
+
+" ===
+" === MarkdownPreview
+" ===
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = 'chromium'
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
+
+
+" ===
+" === Python-syntax
+" ===
+let g:python_highlight_all = 1
+" let g:python_slow_sync = 0
+
+
+" ===
+" === Taglist
+" ===
 map <silent> T :TagbarOpenAutoClose<CR>
 
-" ==== MarkdownPreview
-nmap <LEADER>mp :MarkdownPreview<CR>
 
-" === edit vimrc
-nmap <LEADER>rc :e $MYVIMRC<CR>
-" ==== vim-table-mode
-
+" ===
+" === vim-table-mode
+" ===
 map <LEADER>tm :TableModeToggle<CR>
 
 
-" ====Goyo
-map <LEADER>gy :Goyo<CR>
+" ===
+" === FZF
+" ===
+map <C-p> :FZF<CR>
 
-" ==== vim-signiture
+
+" ===
+" === vim-signature
+" ===
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
         \ 'PlaceNextMark'      :  "m,",
@@ -361,44 +617,70 @@ let g:SignatureMap = {
         \ }
 
 
+" ===
 " === Undotree
-let g:undotree_DiffAutoOpen = 0
-map <LEADER>ut :UndotreeToggle<CR>
+" ===
+map L :UndotreeToggle<CR>
+let g:undotree_DiffAutoOpen = 1
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
 
-" === Pencil Color
-" 对比度
-let g:pencil_higher_contrast_ui = 0
 
-" Makrdown 标题颜色
-let g:pencil_neutral_headings = 0
+" ==
+" == vim-multiple-cursor
+" ==
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<c-k>'
+let g:multi_cursor_select_all_word_key = '<a-k>'
+let g:multi_cursor_start_key           = 'g<c-k>'
+let g:multi_cursor_select_all_key      = 'g<a-k>'
+let g:multi_cursor_next_key            = '<c-k>'
+let g:multi_cursor_prev_key            = '<c-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
 
-" 代码背景颜色
-let g:pencil_neutral_code_bg = 1
 
-" 拼写错误颜色
-let g:pencil_spell_undercurl = 1
+" ==
+" == thesaurus_query
+" ==
+map <LEADER>th :ThesaurusQueryLookupCurrentWord<CR>
 
-if $TERM_PROGRAM =~ "iTerm""
-let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-let &t_EI = "\Esc><]50;CursorShape=0\x7" " Block in normal mode
-endif">
 
-" === Vim translate
-" 是否使用默认的快捷键
-let g:vtm_default_mapping = 0
-" 默认翻译的目标语言
-let g:vtm_default_to_lang = 'zh'
-" 默认翻译接口
-let g:vtm_default_engines = 'youdao'
-" 快捷键设置===
-nmap <silent> <LEADER>t <Plug>Translate
-vmap <silent> <LEADER>t <Plug>Translate
+" Startify
+let g:startify_lists = [
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
 
-" Leader>w 翻译光标下的文本，在窗口中显示
-nmap <silent> <Leader>tw <Plug>TranslateW
-vmap <silent> <Leader>tw <Plug>TranslateWV
-" Leader>r 替换光标下的文本为翻译内容
-nmap <silent> <Leader>tr <Plug>TranslateR
-vmap <silent> <Leader>tr <Plug>TranslateRV
 
+" ===
+" === Far.vim
+" ===
+nnoremap <silent> <LEADER>f :F  %<left><left>
+
+" Testing
+"if !empty(glob('~/Github/vim-calc/vim-calc.vim'))
+  "source ~/Github/vim-calc/vim-calc.vim
+"endif
+
+
+" ===
+" === emmet
+" ===
+let g:user_emmet_leader_key='<C-f>'
+
+
+" ===
+" === Bullets.vim
+" ===
+let g:bullets_set_mappings = 0
+
+
+" ===================== End of Plugin Settings =====================
+
+" Open the _machine_specific.vim file if it has just been created
+if has_machine_specific_file == 0
+  exec "e ~/.config/nvim/_machine_specific.vim"
+endif
 
