@@ -1,34 +1,28 @@
-;==========================================================
+;=============================
 ;
+; ___________________________ 
+;< EvanMeek's POLYBAR CONFIG >
+; --------------------------- 
+;        \   ^__^
+;         \  (oo)\_______
+;            (__)\       )\/\
+;                ||----w |
+;                ||     ||
 ;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
-
+;=============================
 [colors]
-background = #cc222222
-background-alt = #444
+background =
+background-alt = 
 ;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+foreground = 	#000000
+foreground-alt = #000000
+primary = #FFF0F5
+secondary = #000000
+alert = #FFF0F5
 
 [bar/example]
 ;monitor = ${env:MONITOR:HDMI1}
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:DVI-D-0}
 width = 100%
 height = 30
 ;offset-x = 1%
@@ -62,8 +56,7 @@ font-4 = "material icons:pixelsize=16;3"
 
 modules-left = i3
 modules-center = xwindow
-;modules-center = 
-modules-right = cpu memory temperature battery date 
+modules-right = powermenu memory cpu  temperature date filesystem
 
 tray-position = right
 tray-padding = 2
