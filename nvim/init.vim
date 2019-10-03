@@ -205,13 +205,13 @@ noremap srv <C-w>b<C-w>H
 " === Tab management
 " ===
 " Create a new tab with tu
-map tu :tabe<CR>
+map tn :tabe<CR>
 " Move around tabs with tn and ti
-map tn :-tabnext<CR>
-map ti :+tabnext<CR>
+map th :-tabnext<CR>
+map tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
-map tmn :-tabmove<CR>
-map tmi :+tabmove<CR>
+map tmh :-tabmove<CR>
+map tml :+tabmove<CR>
 
 
 " ===
@@ -241,6 +241,8 @@ map ` ~
 imap <C-c> <Esc>zza
 nmap <C-c> zz
 
+" EvanMeek Info
+iabbrev info8 email:the_lty_mail@foxmail.com    name:EvanMeek    WebSize:https://evanmeek.github.io
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -355,8 +357,8 @@ Plug 'vim-scripts/indentpython.vim', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 "Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 
-" Markdow}n
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for' :['markdown', 'vim-plug'] }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'dkarter/bullets.vim', { 'for' :['markdown', 'vim-plug'] }
 
@@ -371,6 +373,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
+Plug 'junegunn/goyo.vim'
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
@@ -384,6 +387,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'roxma/nvim-yarp'
+
+Plug 'wsdjeg/vimdoc-cn'
+
 
 call plug#end()
 
@@ -546,7 +552,6 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_open_ip = ''
-let g:mkdp_browser = 'chromium'
 let g:mkdp_echo_preview_url = 0
 let g:mkdp_browserfunc = ''
 let g:mkdp_preview_options = {
@@ -587,6 +592,10 @@ map <LEADER>tm :TableModeToggle<CR>
 " === FZF
 " ===
 map <C-p> :FZF<CR>
+map <C-p>b :FZF ~/GitRepo/MyBlog<CR>
+map <C-p>h :FZF ~<CR>
+map <C-p>/ :FZF /<CR>
+map <C-h> :History<CR>
 
 
 " ===
@@ -643,7 +652,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 " ==
 " == thesaurus_query
 " ==
-map <LEADER>th :ThesaurusQueryLookupCurrentWord<CR>
+map <LEADER>tq :ThesaurusQueryLookupCurrentWord<CR>
 
 
 " Startify
@@ -676,7 +685,10 @@ let g:user_emmet_leader_key='<C-f>'
 " ===
 let g:bullets_set_mappings = 0
 
-
+" ===
+" === Goyo
+" ===
+map <LEADER>GY :Goyo<CR>
 " ===================== End of Plugin Settings =====================
 
 " Open the _machine_specific.vim file if it has just been created
