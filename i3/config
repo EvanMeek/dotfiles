@@ -1,16 +1,16 @@
 set $mod Mod1
 
-new_window pixel 4
+new_window pixel 2
 
 new_float normal
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 4
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
-font xft:monospace 16
+font xft:Iosevka 16
 
 floating_modifier $mod
 
@@ -18,20 +18,19 @@ bindsym $mod+Return exec alacritty
 
 bindsym $mod+Shift+Return exec alacritty -e ranger
 
-bindsym $mod+Control+g exec chromium
-bindsym $mod+Control+f exec firefox
+bindsym $mod+Control+g exec google-chrome-stable
 bindsym $mod+Control+p exec flameshot gui
-bindsym $mod+Control+l exec redshift -l 31:121
+bindsym $mod+Control+l exec "redshift -c ~/.config/redshift/redshift.conf"
 
 
 # Autostart applications
-exec_always --no-startup-id killall compton && compton -b
+exec --no-startup-id killall picom && sleep 1s &&  picom -b
 exec --no-startup-id nm-applet
-exec_always --no-startup-id /$HOME/.config/polybar/launch.sh
-exec_always --no-startup-id xrandr --output DVI-D-1 --mode 1920x1080
+exec_always --no-startup-id "/$HOME/.config/polybar/launch.sh light"
+exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080
 exec_always --no-startup-id fcitx
 exec --no-startup-id variety
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+exec_always --no-startup-id "xmodmap ~/.xmodmap"
 
 
 # Window kill command
@@ -39,8 +38,11 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id rofi -show run
+# bindsym $mod+d exec --no-startup-id "utools"
 
 # change focus
+floating_minimum_size 1500 x 800
+floating_maximum_size -1 x 1000
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -64,8 +66,8 @@ bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+q split toggle
@@ -91,7 +93,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+plus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -133,16 +135,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # 软件从特定工作区打开
 
-assign [class="TelegramDesktop"] $ws5
-assign [class="firefox"] $ws3
-assign [class="Google-chrome"] $ws3
-assign [class="netease-cloud-music"] $ws4
-assign [class="jetbrains-clion"] $ws2
-assign [class="Emacs"] $ws2
-assign [class="Epdfview"] $ws7
-assign [class="Alacritty"] $ws1
+# assign [class="TelegramDesktop"] $ws5
+# assign [class="firefox"] $ws3
+# assign [class="Google-chrome"] $ws3
+# assign [class="netease-cloud-music"] $ws4
+# assign [class="jetbrains-clion"] $ws2
+# assign [class="Emacs"] $ws2
+# assign [class="Epdfview"] $ws7
+# assign [class="Alacritty"] $ws1
 
 # Open specific applications in floating mode
+for_window [instance="QQ.exe"] floating enable
+for_window [instance="QQ.exe"] border none
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="Calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
@@ -170,7 +174,7 @@ for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
-
+for_window [title="java /home/evanmeek/Game/Minecraft/client/Evan"] move scratchpad
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -181,19 +185,19 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock-fancy, mode "default"
+    bindsym l exec --no-startup-id i3lock-fancy-dualmonitor, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
@@ -236,7 +240,6 @@ mode "resize" {
 
 
 # Theme colors
-client.focused #7FFFAA #F0FFFF #1E90FF #FFD700 #FFD700 
 client.background #990033
 
 # Gaps
@@ -295,7 +298,10 @@ bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
 
 #bar {
 #        status_command i3status
-#	colors{
-#	background #222222
-#	}
+#
 #}
+
+client.focused #0088CC #0088CC #ffffff #dddddd
+client.focused_inactive #333333 #333333 #888888 #292d2e
+client.unfocused #333333 #333333 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
