@@ -1,4 +1,4 @@
-set $mod Mod1
+set $mod Mod4
 
 new_window pixel 2
 
@@ -10,7 +10,7 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
-font xft:Iosevka 16
+font xft:Iosevka 12
 
 floating_modifier $mod
 
@@ -26,11 +26,13 @@ bindsym $mod+Control+l exec "redshift -c ~/.config/redshift/redshift.conf"
 # Autostart applications
 exec --no-startup-id killall picom && sleep 1s &&  picom -b
 exec --no-startup-id nm-applet
-exec_always --no-startup-id "/$HOME/.config/polybar/launch.sh light"
+exec_always --no-startup-id /$HOME/.config/polybar/launch.sh light
 exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080
 exec_always --no-startup-id fcitx
 exec --no-startup-id variety
-exec_always --no-startup-id "xmodmap ~/.xmodmap"
+exec_always --no-startup-id xmodmap ~/.xmodmap
+exec_always --no-startup-id  /opt/Qv2ray/bin/Qv2ray
+
 
 
 # Window kill command
@@ -41,7 +43,7 @@ bindsym $mod+d exec --no-startup-id rofi -show run
 # bindsym $mod+d exec --no-startup-id "utools"
 
 # change focus
-floating_minimum_size 1500 x 800
+floating_minimum_size 400 x -1
 floating_maximum_size -1 x 1000
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -124,10 +126,10 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
@@ -136,7 +138,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # 软件从特定工作区打开
 
 # assign [class="TelegramDesktop"] $ws5
-# assign [class="firefox"] $ws3
+assign [class="firefox"] $ws3
 # assign [class="Google-chrome"] $ws3
 # assign [class="netease-cloud-music"] $ws4
 # assign [class="jetbrains-clion"] $ws2
@@ -192,10 +194,10 @@ bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3lock-fancy-dualmonitor, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym s exec --no-startup-id i3lock-fancy-dualmonitor && systemctl hybrid-sleep, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h exec --no-startup-id i3lock-fancy-dualmonitor && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
 
@@ -226,6 +228,11 @@ mode "resize" {
         bindsym j resize grow height 5 px or 5 ppt
         bindsym k resize shrink height 5 px or 5 ppt
         bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym Shift+h resize shrink width 15 px or 15 ppt
+        bindsym Shift+j resize grow height 15 px or 15 ppt
+        bindsym Shift+k resize shrink height 15 px or 15 ppt
+        bindsym Shift+l resize grow width 10 px or 15 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt

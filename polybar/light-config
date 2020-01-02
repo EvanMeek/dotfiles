@@ -28,11 +28,11 @@ override-redirect = ${config.override-redirect}
 
 module-margin = 1
 
-font-0 = Iosevka:pixelsize=14
-font-1 = Font Awesome 5 Free:style=Solid:pixelsize=14;1
-font-2 = Font Awesome 5 Brands:pixelsize=14;1
-font-3 = Weather Icons:style=Regular:size=14;1
-font-4 = Iosevka:size=14
+font-0 = Iosevka:pixelsize=12
+font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;1
+font-2 = Font Awesome 5 Brands:pixelsize=12;1
+font-3 = Weather Icons:style=Regular:size=12;1
+font-4 = Iosevka:size=12
 
 modules-left = ${config.top-left}
 modules-center = ${config.top-center}
@@ -68,11 +68,11 @@ padding = 1.5
 
 module-margin = 2
 
-font-0 = Iosevka:pixelsize=12
-font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;1
-font-2 = Font Awesome 5 Brands:pixelsize=12;1
-font-3 = Weather Icons:style=Regular:size=12;1
-font-4 = Iosevka:size=12
+font-0 = Iosevka:pixelsize=13
+font-1 = Font Awesome 5 Free:style=Solid:pixelsize=13;1
+font-2 = Font Awesome 5 Brands:pixelsize=13;1
+font-3 = Weather Icons:style=Regular:size=13;1
+font-4 = Iosevka:size=13
 
 modules-left = ${config.bottom-left}
 modules-center = ${config.bottom-center}

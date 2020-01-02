@@ -36,9 +36,9 @@ override-redirect = false
 # show-desktop: Display desktop (i3 only)
 
 # Top modules
-top-left = i3 workspace-name
+top-left = i3 battery backlight
 top-center = title
-top-right = alsa battery date notify 
+top-right = alsa date notify
 
 # Bottom modules
 bottom-left =  show-desktop weather backlight

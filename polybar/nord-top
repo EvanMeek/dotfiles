@@ -29,16 +29,16 @@ ws-icon-5 = 25:Desktop;
 ws-icon-default = 
 
 ; color
-label-focused = 
+label-focused = %name%
 label-focused-underline = ${colors.nord7}
 label-focused-foreground = ${colors.nord7}
 label-focused-padding = 2
 
-label-unfocused = •
+label-unfocused = %name%
 label-unfocused-foreground = ${colors.nord9}
 label-unfocused-padding = 2
 
-label-urgent = 
+label-urgent = %name%
 label-urgent-foreground = ${colors.urgent}
 label-urgent-background = ${colors.foreground}
 label-urgent-padding = 2
@@ -55,8 +55,8 @@ format = <label-state>
 
 label-focused = %name%
 label-focused-padding = 2
-label-focused-foreground = ${colors.nord7}
-label-focused-underline = ${colors.nord7}
+label-focused-foreground = ${colors.foreground}
+label-focused-underline = ${colors.foreground}
 
 label-unfocused = 
 
