@@ -18,15 +18,15 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka" :size 20))
+(setq doom-font (font-spec :family "Iosevka" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-molokai)
 
 ;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/org/")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
