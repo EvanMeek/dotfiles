@@ -18,12 +18,16 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Iosevka" :size 18))
+
+(setq url-proxy-services '(
+                           ("http" . "127.0.0.1:8000")
+                           ("https" . "127.0.0.1:8000")))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-molokai)
+(setq doom-theme 'doom-one-light)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/Documents/org/")
@@ -48,3 +52,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+
+
+;; 全局自动换行
+(+global-word-wrap-mode t)

@@ -12,6 +12,7 @@
   (set-popup-rule! "^◀[[({<].*[\])>}]$"
     :side 'bottom :size 40 :quit nil :modeline t :select t)
   (setq telega-use-tracking t
+        telega-notifications-mode t
         telega-chat-footer-show-pinned-message nil
         telega-known-inline-bots '("@shufmbot")
         telega-sticker-set-download t
@@ -21,8 +22,11 @@
         telega-root-fill-column 48)
   (when (featurep! :completion ivy)
     (load! "+ivy")
-    (map! :map (telega-root-mode-map telega-chat-mode-map)
-          "C-S-M-s-c" #'ivy-telega-chat-with))
+    (map! ;:map (telega-root-mode-map telega-chat-mode-map)
+     :leader
+     :prefix ("e" . "Evan专属")
+     (:prefix ("t" . "telega")
+       :desc "ivy-搜索telega聊天" "c" #'ivy-telega-chat-with)))
   (when (featurep! :completion company)
     (add-hook 'telega-chat-mode-hook
               (lambda ()
