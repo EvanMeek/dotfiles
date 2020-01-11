@@ -13,6 +13,7 @@ alias gs='git status'
 alias hgd='hexo g -d'
 alias hgs='hexo g && hexo s'
 alias hn='hexo new'
+alias pc='proxychains'
 # Path to Oh My Fish install.
 set -q XDG_DATA_HOME
   and set -gx OMF_PATH "$XDG_DATA_HOME/omf"
