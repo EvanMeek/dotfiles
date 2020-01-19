@@ -8,16 +8,16 @@
   :config
   (telega-mode-line-mode 1)
   (set-popup-rule! (regexp-quote telega-root-buffer-name)
-    :side 'left :size 20 :quit nil :modeline t :select t)
+    :side 'left :size 30 :quit nil :modeline t :select t)
   (set-popup-rule! "^◀[[({<].*[\])>}]$"
-    :side 'bottom :size 40 :quit nil :modeline t :select t)
+    :side 'right :size 60 :quit nil :modeline t :select t)
   (setq telega-use-tracking t
         telega-notifications-mode t
         telega-chat-footer-show-pinned-message nil
         telega-known-inline-bots '("@shufmbot")
         telega-sticker-set-download t
         telega-chat-button-width 28
-        telega-proxies (list '(:server "127.0.0.1" :port 1080 :enable t
+        telega-proxies (list '(:server "127.0.0.1" :port 1081 :enable t
                                        :type (:@type "proxyTypeSocks5")))
         telega-root-fill-column 48)
   (when (featurep! :completion ivy)

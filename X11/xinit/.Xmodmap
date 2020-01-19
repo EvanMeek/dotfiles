@@ -1,0 +1,3 @@
+keycode 66 =Escape NoSymbol Escape
+keycode 9 = Caps_Lock NoSymbol Caps_Lock
+clear lock

@@ -20,9 +20,9 @@
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Iosevka" :size 18))
 
-(setq url-proxy-services '(
-                           ("http" . "127.0.0.1:8000")
-                           ("https" . "127.0.0.1:8000")))
+;; (setq url-proxy-services '(
+;;                            ("http" . "127.0.0.1:12333")
+;;                            ("https" . "127.0.0.1:12333")))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -55,4 +55,7 @@
 
 
 ;; 全局自动换行
-(+global-word-wrap-mode t)
+;; (+global-word-wrap-mode t)
+;;
+;; 切换全屏
+(toggle-frame-fullscreen)

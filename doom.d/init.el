@@ -45,7 +45,7 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       pretty-code       ; replace bits of code with pretty symbols
+       ;;pretty-code       ; replace bits of code with pretty symbols
        ;;tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
@@ -72,7 +72,8 @@
 
        :emacs
        (dired
-        +icons)             ; making dired pretty [functional]
+        +icons
+        +ranger)             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        (ibuffer
         +icons)           ; interactive buffer management
@@ -81,8 +82,14 @@
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
        shell             ; a terminal REPL for Emacs
-       ;;term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+                                        ;term              ; terminals in Emacs
+       vterm             ; another terminals in Emacs
+
+       :checkers
+       (synatxt
+        +childframe)          ; tasing you for every semicolon you forget
+       (spell
+        +prog)          ; tasing you for misspelling mispelling
 
        :tools
        ansible
@@ -92,10 +99,6 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       (flycheck
-        +childframe)          ; tasing you for every semicolon you forget
-       (flyspell
-        +prog)          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
@@ -183,7 +186,7 @@
        irc               ; how neckbeards socialize
        (rss)
        ;;+org)        ; emacs as an RSS reader
-                                        ;twitter           ; twitter client https://twitter.com/vnought
+       twitter           ; twitter client https://twitter.com/vnought
        (write
         +wordnut
         +langtools)             ; emacs for writers (fiction, notes, papers, etc.)
@@ -193,7 +196,10 @@
        (default +bindings +smartparens)
 
        :mytools
-       telega)
+       telega
+       youdao
+       music
+       google-translate)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
