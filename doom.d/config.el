@@ -1,61 +1,180 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;;; config/private/+ui.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; refresh' after modifying this file!
+(load! "+bindings")
+(load! "+ui")
+(load! "+org")
 
-
-;; These are used for a number of things, particularly for GPG configuration,
-;; some email clients, file templates and snippets.
-(setq user-full-name "EvanMeek"
-      user-mail-address "the_lty_mail@foxmail.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka" :size 18))
-
-;; (setq url-proxy-services '(
-;;                            ("http" . "127.0.0.1:12333")
-;;                            ("https" . "127.0.0.1:12333")))
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-one-light)
-
-;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/Documents/org/")
-
-;; If you want to change the style of line numbers, change this to `relative' or
-;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; remove doom advice, I don't need deal with comments when newline
+(advice-remove #'newline-and-indent #'doom*newline-indent-and-continue-comments)
 
 
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', where Emacs
-;;   looks when you load packages with `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
-;; they are implemented.
+;; Reconfigure packages
+(after! evil-escape
+  (setq evil-escape-key-sequence "jk"))
+
+  
+(after! projectile
+  (setq compilation-read-command nil)  ; no prompt in projectile-compile-project
+  (projectile-register-project-type 'cmake '("CMakeLists.txt")
+                                    :configure "cmake %s"
+                                    :compile "cmake --build Debug"
+                                    :test "ctest")
+
+  (setq projectile-require-project-root t)
+  (setq projectile-project-root-files-top-down-recurring
+        (append '("compile_commands.json")
+                projectile-project-root-files-top-down-recurring)))
+
+(after! company
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0
+        company-tooltip-limit 10
+        company-show-numbers t
+        company-global-modes '(not comint-mode erc-mode message-mode help-mode gud-mode)
+        ))
 
 
-;; 全局自动换行
-;; (+global-word-wrap-mode t)
-;;
-;; 切换全屏
-(toggle-frame-fullscreen)
+(after! yasnippet
+  (add-to-list 'yas-snippet-dirs #'+my-private-snippets-dir nil #'eq))
+
+
+
+(after! format
+  (set-formatter!
+    'clang-format
+    '("clang-format"
+      ("-assume-filename=%S" (or (buffer-file-name) ""))
+      "-style=Google"))
+  :modes
+  '((c-mode ".c")
+    (c++-mode ".cpp")
+    (java-mode ".java")
+    (objc-mode ".m")
+    ))
+
+(after! ws-butler
+  (setq ws-butler-global-exempt-modes
+        (append ws-butler-global-exempt-modes
+                '(prog-mode org-mode))))
+
+
+(after! tex
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t))
+  (setq-hook! LaTeX-mode TeX-command-default "XeLaTex")
+
+  (setq TeX-save-query nil)
+
+  (when (fboundp 'eaf-open)
+    (add-to-list 'TeX-view-program-list '("eaf" TeX-eaf-sync-view))
+    (add-to-list 'TeX-view-program-selection '(output-pdf "eaf"))))
+
+
+
+(after! eshell
+  (setq eshell-directory-name (expand-file-name "eshell" doom-etc-dir)))
+
+(global-auto-revert-mode 0)
+
+(after! lsp
+  (setq lsp-auto-guess-root t))
+
+(after! lsp-ui
+  (add-hook! 'lsp-ui-mode-hook #'lsp-ui-doc-mode)
+  (setq
+   lsp-ui-doc-use-webkit nil
+   lsp-ui-doc-max-height 20
+   lsp-ui-doc-max-width 50
+   lsp-ui-sideline-enable nil
+   lsp-ui-peek-always-show t)
+  (map!
+   :map lsp-ui-peek-mode-map
+   "h" #'lsp-ui-peek--select-prev-file
+   "j" #'lsp-ui-peek--select-next
+   "k" #'lsp-ui-peek--select-prev
+   "l" #'lsp-ui-peek--select-next-file))
+
+(after! ccls
+  (setq ccls-initialization-options `(:cache (:directory ,(expand-file-name "~/Code/ccls_cache"))
+                                             :compilationDatabaseDirectory "build"))
+
+  (setq ccls-sem-highlight-method 'font-lock)
+  (ccls-use-default-rainbow-sem-highlight)
+  (evil-set-initial-state 'ccls-tree-mode 'emacs))
+
+
+(use-package! visual-regexp
+  :commands (vr/query-replace vr/replace))
+
+(use-package! package-lint
+  :commands (package-lint-current-buffer))
+
+(use-package! auto-save
+  :load-path +my-ext-dir
+  :config
+  (setq +my-auto-save-timer nil)
+  (setq auto-save-slient t))
+
+
+(use-package! company-english-helper
+  :commands (toggle-company-english-helper))
+
+
+(use-package! openwith
+  :load-path +my-ext-dir
+  :config
+  (setq openwith-associations
+        '(
+          ("\\.pdf\\'" "okular" (file))
+          ("\\.docx?\\'" "wps" (file))
+          ("\\.pptx?\\'" "wpp" (file))
+          ("\\.xlsx?\\'" "et" (file))))
+  (add-hook! 'emacs-startup-hook :append #'openwith-mode))
+
+
+
+(use-package! eaf
+  :load-path "/home/xhcoding/Code/ELisp/emacs-application-framework/"
+  :commands (eaf-open)
+  :config
+  (evil-set-initial-state 'eaf-mode 'emacs))
+
+(after! pyim
+  (setq pyim-page-tooltip 'posframe)
+
+  (setq-default pyim-english-input-switch-functions
+                '(
+                  pyim-probe-dynamic-english
+                  pyim-probe-isearch-mode
+                  pyim-probe-program-mode
+                  pyim-probe-org-structure-template))
+
+  (setq-default pyim-punctuation-half-width-functions
+                '(pyim-probe-punctuation-line-beginning
+                  pyim-probe-punctuation-after-punctuation))
+
+  (map! :gnvime
+        "M-l" #'pyim-convert-string-at-point))
+
+(after! geiser
+  (setq-default geiser-default-implementation 'chez))
+
+(use-package! keyfreq)
+
+(use-package! evil-matchit)
+
+(use-package! nsis-mode
+  :mode ("\.[Nn][Ss][HhIi]\'". nsis-mode))
+
+(use-package! groovy-mode
+  :mode ("\.groovy\'" . groovy-mode))
+
+;; server
+(setq server-auth-dir (expand-file-name doom-etc-dir))
+(setq server-name "emacs-server-file")
+(server-start)
+
+(when (eq system-type 'windows-nt)
+  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+  )

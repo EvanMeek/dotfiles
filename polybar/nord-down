@@ -73,8 +73,8 @@ interval = 3
 
 format-connected = <label-connected>
 
-label-connected =  %downspeed:9%   %upspeed:9%
-label-connected-foreground = ${colors.success}
+label-connected =  %downspeed:%   %upspeed:%
+label-connected-foreground = ${colors.nord9}
 
 [module/temperature]
 type = internal/temperature
@@ -85,6 +85,8 @@ base-temperature = ${config.base-temperature}
 
 warn-temperature = ${config.warn-temperature}
 
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
+
 ; Format
 format = <ramp> <label>
 format-warn = <label-warn>
@@ -93,7 +95,7 @@ format-warn-background = ${colors.foreground}
 label-warn =  %temperature-c%
 label-warn-padding = 1
 label-warn-foreground = ${colors.urgent}
-label-warn-background = ${colors.foreground}
+label-warn-background = ${colors.background}
 
 ramp-0 = 
 ramp-1 = 

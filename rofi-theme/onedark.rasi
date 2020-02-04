@@ -20,13 +20,13 @@
   emphasis:   #50536b;
   text:       #dfdfdf;
   text-alt:   #b2b2b2;
-  fg:         #abb2bf;
-  bg:         #282c34;
+  fg:         #ABB2B9;
+  bg:         #ABB2B9;
 
   spacing: 0;
   background-color: transparent;
 
-  font: "Knack Nerd Font 14";
+  font: "JetBrains Mono Medium 14";
   text-color: @text;
 }
 
@@ -37,7 +37,7 @@ window {
 }
 
 mainbox {
-  padding: 30% 30%;
+  padding: 25% 25%;
 }
 
 inputbar {
@@ -62,7 +62,7 @@ entry {
 listview {
   spacing: 5px;
   dynamic: true;
-  scrollbar: false;
+  scrollbar: true;
 }
 
 element {

@@ -1,4 +1,69 @@
 ; vim:ft=dosini
+[module/temperature]
+type = internal/temperature
+
+thermal-zone = ${config.thermal-zone}
+
+base-temperature = ${config.base-temperature}
+
+warn-temperature = ${config.warn-temperature}
+
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
+
+; Format
+format = <ramp> <label>
+format-warn = <label-warn>
+format-warn-background = ${colors.foreground}
+
+label-warn =  %temperature-c%
+label-warn-padding = 1
+label-warn-foreground = ${colors.urgent}
+label-warn-background = ${colors.background}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+
+ramp-0-foreground = #16F408
+ramp-1-foreground = #F4A908
+ramp-2-foreground = ${colors.success}
+ramp-3-foreground = ${colors.success}
+ramp-4-foreground = ${colors.warning}
+[module/memory]
+type = internal/memory
+interval = 3
+
+format = <ramp-used> <label>
+
+label = %gb_used%/%gb_total%
+
+ramp-used-0 = 
+ramp-used-0-foreground = #16F408
+
+ramp-used-1 = 
+ramp-used-1-foreground = #F4BE08
+
+ramp-used-2 = 
+ramp-used-2-foreground = #F42C08
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+
+format = <ramp-load> <label>
+
+ramp-load-0 = 
+ramp-load-0-foreground = #16F408
+
+ramp-load-1 = 
+ramp-load-1-foreground = #F4BE08
+
+ramp-load-2 = 
+ramp-load-2-foreground = #F42C08
+
 [module/i3]
 type = internal/i3
 
@@ -30,7 +95,7 @@ ws-icon-default = 
 
 ; color
 label-focused = %name%
-label-focused-underline = ${colors.nord7}
+# label-focused-underline = ${colors.nord7}
 label-focused-foreground = ${colors.nord7}
 label-focused-padding = 2
 
@@ -54,7 +119,7 @@ strip-wsnumbers = true
 format = <label-state>
 
 label-focused = %name%
-label-focused-padding = 2
+label-focused-padding = 0
 label-focused-foreground = ${colors.foreground}
 label-focused-underline = ${colors.foreground}
 
@@ -63,13 +128,13 @@ label-unfocused =
 label-urgent = %name%
 label-urgent-foreground = ${colors.urgent}
 label-urgent-background = ${colors.foreground}
-label-urgent-padding = 2
+label-urgent-padding = 0
 
 [module/title]
 type = internal/xwindow
 format-foreground = ${colors.nord6}
-format-underline = ${colors.nord7}
-format-padding = 4
+format-underline = #721ADF
+format-padding = 0
 
 label-maxlen = 200
 label-empty = Desktop
@@ -86,7 +151,7 @@ date-alt = %Y-%m-%d%
 format = <label>
 label =  %date%
 label-margin = 1
-label-underline = ${colors.nord8}
+# label-underline = ${colors.nord8}
 
 [module/battery]
 type = internal/battery
@@ -97,7 +162,7 @@ battery = ${config.battery-bat}
 adapter = ${config.battery-adp}
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = ${colors.foreground}
+# format-charging-underline = ${colors.foreground}
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
@@ -106,7 +171,7 @@ animation-charging-4 = 
 animation-charging-framerate = 750
 
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-underline = ${colors.notify}
+# format-discharging-underline = ${colors.notify}
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
@@ -116,7 +181,7 @@ ramp-capacity-foreground = ${colors.notify}
 
 label-full = 
 label-full-foreground = ${colors.success}
-label-full-underline = ${colors.success}
+# label-full-underline = ${colors.success}
 
 [module/keyboard]
 type = internal/xkeyboard
@@ -146,7 +211,7 @@ master-mixer = ${config.master-mixer}
 
 ; Format 
 format-volume = <ramp-volume> <label-volume>
-format-volume-underline = ${colors.function}
+# format-volume-underline = ${colors.function}
 
 label-muted =  muted
 label-muted-foreground = ${colors.urgent}
@@ -166,6 +231,8 @@ ramp-volume-foreground = ${colors.nord7}
 [module/backlight]
 type = internal/xbacklight
 
+card = intel_backlight
+
 enable-scroll = true
 
 ; Format
@@ -181,7 +248,6 @@ ramp-foreground = ${colors.nord9}
 type = internal/mpd
 
 host = ${config.mpd-host}
-port = ${config.mpd-port}
 
 ; Format
 format-online = <toggle> <icon-prev> <label-song> <icon-next> <icon-stop> | <bar-progress> | <icon-repeat> <icon-random>
@@ -260,3 +326,10 @@ ramp-signal-2-underline = ${colors.nord7}
 
 ramp-signal-3-foreground = ${colors.success}
 ramp-signal-3-underline = ${colors.success}
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-fullfeatured.sh
+interval = 600
+
+label-font = 4
