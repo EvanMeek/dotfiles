@@ -28,11 +28,11 @@ override-redirect = ${config.override-redirect}
 
 module-margin = 1
 
-font-0 = JetBrains Mono Medium:size=12:style=Regular
+font-0 = Sarasa mono SC:size=12
 font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;1
 font-2 = Font Awesome 5 Brands:pixelsize=12;1
 font-3 = Weather Icons:style=Regular:size=12;1
-font-4 = JetBrains Mono Medium:size=12:style=Regular
+font-4 = Sarasa mono SC:size=12
 
 modules-left = ${config.top-left}
 modules-center = ${config.top-center}
