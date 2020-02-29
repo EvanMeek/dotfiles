@@ -19,14 +19,18 @@ dpi = ${config.dpi}
 background = ${colors.background}
 foreground = ${colors.foreground}
 
+base-temperature = ${colors.foreground}
+warn-temperature = ${colors.foreground}
+thermal-zone = ${colors.foreground}
+
 line-size = ${config.line-size}
 
 padding-left = 0
-padding-right = 0
+padding-right = 1
 
 override-redirect = ${config.override-redirect}
 
-module-margin = 1
+module-margin = 1.5
 
 font-0 = Sarasa mono SC:size=12
 font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;1

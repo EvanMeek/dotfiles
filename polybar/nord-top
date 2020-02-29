@@ -8,16 +8,16 @@ base-temperature = ${config.base-temperature}
 
 warn-temperature = ${config.warn-temperature}
 
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
 
 ; Format
 format = <ramp> <label>
 format-warn = <label-warn>
-format-warn-background = ${colors.foreground}
+format-warn-background = ${colors.nord6}
 
 label-warn =  %temperature-c%
 label-warn-padding = 1
-label-warn-foreground = ${colors.urgent}
+label-warn-foreground = ${colors.foreground}
 label-warn-background = ${colors.background}
 
 ramp-0 = 
@@ -27,11 +27,11 @@ ramp-3 = 
 ramp-4 = 
 
 
-ramp-0-foreground = #16F408
-ramp-1-foreground = #F4A908
-ramp-2-foreground = ${colors.success}
-ramp-3-foreground = ${colors.success}
-ramp-4-foreground = ${colors.warning}
+ramp-0-foreground = ${colors.foreground}
+ramp-1-foreground = ${colors.foreground}
+ramp-2-foreground = ${colors.foreground}
+ramp-3-foreground = ${colors.foreground}
+ramp-4-foreground = ${colors.foreground}
 [module/memory]
 type = internal/memory
 interval = 3
@@ -41,13 +41,13 @@ format = <ramp-used> <label>
 label = %gb_used%/%gb_total%
 
 ramp-used-0 = 
-ramp-used-0-foreground = #16F408
+ramp-used-0-foreground = ${colors.foreground}
 
 ramp-used-1 = 
-ramp-used-1-foreground = #F4BE08
+ramp-used-1-foreground = ${colors.foreground}
 
 ramp-used-2 = 
-ramp-used-2-foreground = #F42C08
+ramp-used-2-foreground = ${colors.foreground}
 
 [module/cpu]
 type = internal/cpu
@@ -56,13 +56,13 @@ interval = 1
 format = <ramp-load> <label>
 
 ramp-load-0 = 
-ramp-load-0-foreground = #16F408
+ramp-load-0-foreground = ${colors.foreground}
 
 ramp-load-1 = 
-ramp-load-1-foreground = #F4BE08
+ramp-load-1-foreground = ${colors.foreground}
 
 ramp-load-2 = 
-ramp-load-2-foreground = #F42C08
+ramp-load-2-foreground = ${colors.foreground}
 
 [module/i3]
 type = internal/i3
@@ -133,7 +133,7 @@ label-urgent-padding = 0
 [module/title]
 type = internal/xwindow
 format-foreground = ${colors.nord6}
-format-underline = #721ADF
+format-underline =
 format-padding = 0
 
 label-maxlen = 200
@@ -333,3 +333,10 @@ exec = ~/.config/polybar/scripts/openweathermap-fullfeatured.sh
 interval = 600
 
 label-font = 4
+
+[module/show-desktop]
+type = custom/text
+
+content = 
+
+click-left = i3-msg workspace 25:Desktop

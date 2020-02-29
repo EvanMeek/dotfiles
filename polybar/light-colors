@@ -1,15 +1,29 @@
 ; vim:ft=dosini
 
 [colors]
-background = #aa4a4a4a
+background = #ddFFFFFF
 buffer = #4F99D3
-foreground = #FFFDFD
-nord6 = #FFFDFD
-nord7 = #EEAD0E
-nord8 = #FFFDFD
-nord9 = #50e3d6
-urgent = #BF616A
-warning = #D08770
-notify = #EBCB8B
-success = #08A9F4
-function = #B48EAD
+foreground = #080000
+nord6 = #080000
+nord7 = #080000
+nord8 = #080000
+nord9 = #C0C0C0
+urgent = #080000
+warning = #080000
+notify = #080000
+success = #080000
+function = #080000
+
+# [colors]
+# background = #ddFFFFFF
+# buffer = #4F99D3
+# foreground = #FFFFFF
+# nord6 = #080000
+# nord7 = #EEAD0E
+# nord8 = #FFFDFD
+# nord9 = #50e3d6
+# urgent = #BF616A
+# warning = #D08770
+# notify = #EBCB8B
+# success = #08A9F4
+# function = #B48EAD

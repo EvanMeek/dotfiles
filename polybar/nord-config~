@@ -2,16 +2,16 @@
 
 [config]
 # DPI value for HiDPI screen
-dpi = 100
+dpi = 99
 
 # bar position, apply globally
 width = 100%
-height = 3%
+height = 2.6%
 offset-x = 0%
 offset-y = 0%
-radius = -2.0
+radius = 0.0
 
-fixed-center = true
+fixed-center = false
 override-redirect = false
 
 # module list:
@@ -36,38 +36,35 @@ override-redirect = false
 # show-desktop: Display desktop (i3 only)
 
 # Top modules
-top-left = i3 title
-top-center = date
-top-right = memory cpu temperature backlight battery alsa weather
+top-left = i3 workspace-name
+top-center = title
+top-right = alsa battery date notify 
 
 # Bottom modules
-# bottom-left =  show-desktop weather backlight
-# bottom-center = 
-# bottom-right = network-detail temperature memory cpu
-bottom-left = backlight
-bottom-center = backlight
-bottom-right = backlight
+bottom-left =  show-desktop weather backlight
+bottom-center = 
+bottom-right = temperature memory cpu
 
 systray-top = none
-systray-bottom = none
+systray-bottom = right
 
 # global style
-line-size = 4.5
+line-size = 3
 
 # Modules configure option
 # the default value in this section should work in most cases,
 # if some of them doesn't suit your environment, you can change
 # it from here.
 # network interface, check by `ip link show`
-interface = wlp109s0
+interface = wlp0s20f0u7 
 
 # when the current battery capacity excess this value,
 # the full-capacity format will be displayed.
-battery-full-at = 100
+battery-full-at = 95
 
 # battery and adapter
-battery-bat = BAT1
-battery-adp = ACAD
+battery-bat = BAT0
+battery-adp = AC
 
 # soundcard setting
 master-soundcard = default
@@ -81,7 +78,7 @@ mpd-port = 6600
 
 thermal-zone = 0
 # Base temperature for where to start the ramp (in degrees celsius)
-base-temperature = 50
+base-temperature = 20
 # Threshold temperature to display warning label (in degrees celsius)
 warn-temperature = 70
 
@@ -102,5 +99,3 @@ network-click-left = i3-msg workspace 2
 #
 # Default: false
 i3-pin-workspaces = false
-
-strip-wsnumbers = true
