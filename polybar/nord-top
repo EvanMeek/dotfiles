@@ -77,7 +77,7 @@ enable-scroll = true
 wrapping-scroll = true
 reverse-scroll = true
 
-fuzzy-match = false
+fuzzy-match = true
 
 ; Available tags:
 ;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
@@ -104,8 +104,8 @@ label-unfocused-foreground = ${colors.nord9}
 label-unfocused-padding = 2
 
 label-urgent = %name%
-label-urgent-foreground = ${colors.urgent}
-label-urgent-background = ${colors.foreground}
+label-urgent-foreground = #660099
+label-urgent-background = ${colors.background}
 label-urgent-padding = 2
 
 ; seperator
@@ -136,8 +136,8 @@ format-foreground = ${colors.nord6}
 format-underline =
 format-padding = 0
 
-label-maxlen = 200
-label-empty = Desktop
+label-maxlen = 50
+label-empty = NIL
 
 [module/date]
 type = internal/date

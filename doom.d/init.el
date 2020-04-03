@@ -74,9 +74,11 @@
  lookup           ; helps you navigate your code and documentation
 
  :checkers
- synatx
+ syntax
+ grammer
 
  :lang
+ common-lisp
  (cc               ; C/C++/Obj-C madness
   +lsp)
  data              ; config/data formats
@@ -96,6 +98,7 @@
  ;;  +lsp)
  (javascript
   +lsp)
+ (web)
  ;; (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
  ;;  +lsp)
  ;; qt
@@ -109,11 +112,11 @@
  (default +bindings +smartparens)
 
  :private
- my-cc
+ ;; my-cc
  telega
  music
- youdao
- google-translate
- ivy
+ youdao ivy
  default
+ google-translate
+ rime
  )
