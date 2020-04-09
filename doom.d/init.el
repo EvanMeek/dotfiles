@@ -1,9 +1,9 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; 插件源 straight don't need it
-;; (setq package-archives '(("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
-;;                          ("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
- ;;                         ("org-cn"   . "http://elpa.emacs-china.org/org/")))
+ (setq package-archives '(("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
+                          ("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+                         ("org-cn"   . "http://elpa.emacs-china.org/org/")))
 
 ;; 调试模式
 (setq doom-debug-mode nil)
@@ -68,8 +68,8 @@
  vterm             ; another terminals in Emacs
 
  :tools
- magit
  lsp
+ magit
  eval              ; run code, run (also, repls)
  lookup           ; helps you navigate your code and documentation
 
@@ -79,8 +79,7 @@
 
  :lang
  common-lisp
- (cc               ; C/C++/Obj-C madness
-  +lsp)
+ (cc)              ; C/C++/Obj-C madness)
  data              ; config/data formats
  emacs-lisp        ; drown in parentheses
  ;; latex            ; writing papers in Emacs has never been so fun
@@ -96,8 +95,7 @@
   +grip)
  ;; ;; (go
  ;;  +lsp)
- (javascript
-  +lsp)
+ (javascript)
  (web)
  ;; (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
  ;;  +lsp)
@@ -112,11 +110,12 @@
  (default +bindings +smartparens)
 
  :private
- ;; my-cc
  telega
  music
- youdao ivy
+ youdao
  default
- google-translate
+ ;; google-translate
  rime
+ evil
+ lsp
  )

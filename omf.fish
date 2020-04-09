@@ -26,6 +26,8 @@ alias ys='yay -Ss'
 alias m='tldr'
 alias ax='aria2c -x16'
 alias pf='curl -F "c=@-" "https://fars.ee/?u=1"'
+alias s='screen'
+alias ep='export https_proxy="127.0.0.1:8000" && export http_proxy="127.0.0.1:8000"'
 # Path to Oh My Fish install.
 set -q XDG_DATA_HOME
   and set -gx OMF_PATH "$XDG_DATA_HOME/omf"
