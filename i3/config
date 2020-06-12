@@ -1,16 +1,16 @@
 set $mod Mod4
 
-new_window pixel 2
+new_window pixel 0
 
 new_float normal
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 2
+bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-font xft:Iosevka 12
+font xft:Fira Code Retina 13
 
 floating_modifier $mod
 
@@ -27,7 +27,7 @@ bindsym $mod+Control+l exec killall redshift && sleep 1s && redshift
 exec --no-startup-id killall picom && sleep 1s &&  picom -b
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec_always --no-startup-id /$HOME/.config/polybar/launch.sh light
+exec_always --no-startup-id /$HOME/.config/polybar/launch.sh dark
 exec_always --no-startup-id xrandr --output DVI-D-0 --mode 1920x1080
 exec_always --no-startup-id fcitx
 exec --no-startup-id i3-battery-popup -n
@@ -58,10 +58,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 20
+bindsym $mod+Shift+j move down 20
+bindsym $mod+Shift+k move up 20
+bindsym $mod+Shift+l move right 20
 
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -155,7 +155,7 @@ assign [class="firefox"] $ws3
 for_window [urgent=latest] focus
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload 
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -265,24 +265,21 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
-
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 9
-
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
-bindsym XF86AudioMute exec --no-startup-id pamixer -t
+# 系统级别按键
+bindsym Shift+Down exec --no-startup-id xbacklight -dec 10
+bindsym Shift+Up exec --no-startup-id xbacklight -inc 9
+bindsym Shift+Right exec --no-startup-id pamixer -i 2
+bindsym Shift+Left exec --no-startup-id pamixer -d 2
+bindsym Shift+Prior exec --no-startup-id pamixer -t
 # touchpad on and off controller on laptop with Fn+<touchpad control functional key>
 bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
 bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+bindsym Ctrl+Shift+Alt+Prior exec --no-startup-id xinput set-prop 9 "Device Enabled" 0
+bindsym Ctrl+Shift+Prior exec --no-startup-id xinput set-prop 9 "Device Enabled" 1
 
-#bar {
-#        status_command i3status
-#
-#}
-
-# $i3-theme-window
-
+# bar {
+#     status_command py3status
+# }
 client.focused #4F99D3 #4F99D3 #151718 #9FCA56
 client.focused_inactive #9FCA56 #9FCA56 #151718 #A074C4
 client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
