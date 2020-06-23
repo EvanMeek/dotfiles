@@ -21,6 +21,8 @@ bindsym $mod+Shift+Return exec alacritty -e ranger
 bindsym $mod+Control+g exec google-chrome-stable
 bindsym $mod+Control+p exec flameshot gui
 bindsym $mod+Control+l exec killall redshift && sleep 1s && redshift
+bindsym $mod+Control+t exec trayer
+bindsym $mod+Shift+t exec killall trayer
 
 
 # Autostart applications
