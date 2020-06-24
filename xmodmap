@@ -1,19 +1,19 @@
-# 清除修饰符control的内容
+! 清除修饰符control的内容
 clear control
-# 清除修饰符lock的内容
+! 清除修饰符lock的内容
 clear lock
-# 增加control修饰符的内容为Control_L Control_R
+! 增加control修饰符的内容为Control_L Control_R
 add control = Control_L Control_R
-# 增加lock修饰符的内容为Caps_Lock
+! 增加lock修饰符的内容为Caps_Lock
 add lock = Caps_Lock
-# 设置键盘上原本为Control_L的键位为Escape
+! 设置键盘上原本为Control_L的键位为Escape
 keycode 37 = Escape NoSymbol Escape
-# 设置键盘上原本为Caps_lock的键位为Control_L
+! 设置键盘上原本为Caps_lock的键位为Control_L
 keycode 66 = Control_L NoSymbol Control_L
-# 设置键盘上原本为Escape的键位爲Caps_Lock
+! 设置键盘上原本为Escape的键位爲Caps_Lock
 keycode 9 = Caps_Lock NoSymbol Caps_Lock
 
-# 以下是将ALT_L与Super_L调换的配置
+! 以下是将ALT_L与Super_L调换的配置
 remove mod1 = Alt_L
 remove mod4 = Super_L
 keycode 133 = Alt_L
