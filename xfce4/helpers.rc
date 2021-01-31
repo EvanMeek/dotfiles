@@ -1,0 +1,4 @@
+TerminalEmulator=custom-TerminalEmulator
+TerminalEmulatorDismissed=true
+
+WebBrowser=chromium

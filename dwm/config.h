@@ -6,8 +6,8 @@
 static const unsigned int borderpx = 2; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const unsigned int systraypinning =
-    0; /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor
-          X */
+    0; /* 0: sloppy systray follows selected monitor, >0: pin systray to
+          monitorX */
 static const unsigned int systrayspacing = 2; /* systray spacing */
 static const int systraypinningfailfirst =
     1; /* 1: if pinning fails, display systray on the first monitor, False:
@@ -24,7 +24,7 @@ static const int smartgaps =
 static const int showbar = 1;       /* 0 means no bar */
 static const int topbar = 0;        /* 0 means bottom bar */
 static const Bool viewontag = True; /* Switch view on tag switch */
-static const char *fonts[] = {"Iosevka:size=13:style=Regular"};
+static const char *fonts[] = {"agave Nerd Font:size=14:style=r"};
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
 static const char col_gray3[] = "#bbbbbb";
@@ -58,18 +58,14 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    {"Android Emulator", NULL, NULL, 0, 1, -1},
-    {"Emulator", NULL, NULL, 0, 1, -1},
-    {"quemu-system-i386", NULL, NULL, 0, 1, -1},
-    {"Firefox", NULL, NULL, 1 << 8, 0, -1},
-    {"netease-cloud-music", NULL, NULL, 0, 1, -1},
-    {"iease-music", NULL, NULL, 0, 1, -1},
+    {"Emacs", "emacs", " *snails input*", 0, 1, -1},
 };
 
 /* layout(s) */
 static const float mfact = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;   /* number of clients in master area */
-static const int resizehints = 0 ; /* 1 means respect size hints in tiled resizals */
+static const int resizehints =
+    0; /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
@@ -96,8 +92,6 @@ static const Layout layouts[] = {
 static char rofimon[2] = "0"; /* component of roficmd, manipulated in spawn() */
 static const char *roficmd[] = {"rofi", "-show", "drun"};
 static const char *termcmd[] = {"alacritty", NULL};
-static const char *browsercmd[] = {"chromium", NULL};
-
 static const char *upvol[] = {
     "/home/evanmeek/Documents/dotfiles/dwm/scripts/vol-up.sh", NULL};
 static const char *downvol[] = {
@@ -107,32 +101,20 @@ static const char *mutevol[] = {
 
 static const char *wpcmd[] = {
     "/home/evanmeek/Documents/dotfiles/dwm/scripts/wp-change.sh", NULL};
-static const char *sktogglecmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/sck-tog.sh", NULL};
-static const char *thunartogcmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/thunar-toggle.sh", NULL};
-
-static const char *setqwertycmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/setxmodmap-qwerty.sh", NULL};
-
 static const char *suspendcmd[] = {
     "/home/evanmeek/Documents/dotfiles/dwm/scripts/suspend.sh", NULL};
 
-static const char *screenlockcmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/screenlock.sh", NULL};
-
-static const char *incbacklightcmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/inc-backlight.sh", NULL};
-static const char *decbacklightcmd[] = {
-    "/home/evanmeek/Documents/dotfiles/dwm/scripts/dec-backlight.sh", NULL};
-
 static const char *screenshotcmd[] = {"flameshot", "gui", NULL};
+
+static const char *emacsclient[] = {"emacsclient -c -a %", NULL};
 
 static Key keys[] = {
     /* modifier            key                      function argument
      */
     // 程序启动器 rofi
     {MODKEY, XK_d, spawn, {.v = roficmd}},
+    // EamcsClient
+    {MODKEY | ShiftMask, XK_Return, spawn, {.v = emacsclient}},
     // 终端 alacritty
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     /* { MODKEY,              XK_c,                    spawn, {.v =
@@ -144,10 +126,8 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_s, spawn, {.v = suspendcmd}},
     /* { MODKEY|ControlMask,  XK_s,                    spawn, {.v =
        sktogglecmd } }, */
-    //
-    {MODKEY | ControlMask, XK_f, spawn, {.v = thunartogcmd}},
     // 锁屏
-    {MODKEY | ControlMask | ShiftMask, XK_l, spawn, {.v = screenlockcmd}},
+    /* {MODKEY | ControlMask | ShiftMask, XK_l, spawn, {.v = screenlockcmd}}, */
     // 声音 -5
     {MODKEY, XK_bracketleft, spawn, {.v = downvol}},
     {0, XF86XK_AudioLowerVolume, spawn, {.v = downvol}},
@@ -160,9 +140,9 @@ static Key keys[] = {
     // 切换壁纸
     {MODKEY, XK_b, spawn, {.v = wpcmd}},
     // 屏幕亮度+5
-    {MODKEY | ShiftMask, XK_Up, spawn, {.v = decbacklightcmd}},
-    // 屏幕亮度-5
-    {MODKEY | ShiftMask, XK_Down, spawn, {.v = incbacklightcmd}},
+    /* {MODKEY | ShiftMask, XK_Up, spawn, {.v = decbacklightcmd}}, */
+    /* // 屏幕亮度-5 */
+    /* {MODKEY | ShiftMask, XK_Down, spawn, {.v = incbacklightcmd}}, */
     // 截图
     {MODKEY | ControlMask, XK_p, spawn, {.v = screenshotcmd}},
     // 切换窗口位置
@@ -209,10 +189,11 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     // 窗口移动至右边显示器
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+    // 注销
     {MODKEY | ControlMask | ShiftMask, XK_q, quit, {0}},
-	// 焦点至左边显示器
+    // 焦点至左边显示器
     {MODKEY, XK_o, focusmon, {.i = -1}},
-	// 焦点至右边显示器
+    // 焦点至右边显示器
     {MODKEY, XK_p, focusmon, {.i = +1}},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
