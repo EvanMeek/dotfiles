@@ -1,0 +1,7 @@
+
+xmonad.hs:722:34: warning: [-Wtabs]
+    Tab character found here.
+    Please use spaces instead.
+    |
+722 |      , title =? " *snails input*"       --> doFloat
+    |                                  ^^^^^^^
